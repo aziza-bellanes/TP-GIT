@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    tools {
+        jdk 'JDK-21'
+    }
+
+    stages {
+        stage('Checkout code') {
+            steps {
+                git branch: 'master',
+                    url: 'https://github.com/aziza-bellanes/TP-GIT.git',
+                    credentialsId: 'github-credentials'
+            }
+        }
+
+        stage('Compile code') {
+            steps {
+                sh 'javac -d . src/application/test.java'
+            }
+        }
+
+        stage('Execute code') {
+            steps {
+                sh 'java application.test'
+            }
+        }
+    }
+}
